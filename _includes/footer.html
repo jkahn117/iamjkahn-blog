@@ -1,0 +1,36 @@
+<footer class="footer">
+  <div class="container grid-xl">
+    <div class="columns">
+      <div class="column one-third">
+        <strong>{{ site.title | escape }}</strong><br/>
+        {%- if site.author -%}
+          {{ site.author | escape }}<br/>
+        {%- endif -%}
+        &copy; {{ 'now' | date: "%Y" }}
+      </div>
+      <div class="column one-third">
+        <ul>
+          {%- if site.twitter_username -%}
+            <li>
+              <span class="icon"><i class="fab fa-twitter"></i></span>
+              <a href="https://twitter.com/{{ site.twitter_username | cgi_escape | escape }}">
+                <span class="username">{{ site.twitter_username| escape }}</span>
+              </a>
+            </li>
+          {%- endif -%}
+          {%- if site.github_username -%}
+            <li>
+              <span class="icon"><i class="fab fa-github"></i></span>
+              <a href="https://github.com/{{ site.github_username | cgi_escape | escape }}">
+                <span class="username">{{ site.github_username| escape }}</span>
+              </a>
+            </li>
+          {%- endif -%}
+        </ul>
+      </div>
+      <div class="column one-third">
+        <p>{{- site.description | escape -}}</p>
+      </div>
+    </div>
+  </div>
+</footer>
