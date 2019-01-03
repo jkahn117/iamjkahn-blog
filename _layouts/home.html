@@ -3,7 +3,7 @@ layout: default
 ---
 
 <div class="home">
-  {%- if page.title -%}
+  <!-- {%- if page.title -%}
   <section class="hero">
     <div class="hero-body">
       <div class="container">
@@ -11,7 +11,7 @@ layout: default
       </div>
     </div>
   </section>
-  {%- endif -%}
+  {%- endif -%} -->
 
   {{ content }}
 
@@ -26,7 +26,7 @@ layout: default
 
   <section class="section">
     <div class="container">
-      {%- for post in site.posts -%}
+      {%- for post in paginator.posts -%}
       <div class="content">
         <h3 class="title is-3">
           <a href="{{ post.url | relative_url }}">
@@ -43,6 +43,50 @@ layout: default
       </div>
       {%- endfor -%}
 
+      <!-- Pagination -->
+      {% if paginator.total_pages > 1 %}
+      <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+        
+        <a class="pagination-previous"
+           {% if paginator.previous_page %}
+            href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}"
+           {% else %}
+            href="#"
+            disabled
+           {% endif %}
+           >
+            Older Posts
+        </a>
+
+        {% if paginator.page_trail %}
+          <ul class="pagination-list">
+          {% for trail in paginator.page_trail %}
+          <li>
+            <a class="pagination-link {% if page.url == trail.path %}is-current{% endif %}"
+               href="{{ trail.path | prepend: site.baseurl }}"
+               title="{{ trail.title }}"
+               aria-label="Goto page {{ trail.num }}">
+                {{ trail.num }}
+            </a>
+          </li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+
+        <a class="pagination-next"
+           {% if paginator.next_page %}
+            href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}"
+           {% else %}
+            href="#"
+            disabled
+           {% endif %}
+           >
+            Older Posts
+        </a>
+      </nav>
+      {% endif %}
+
+      <!-- Subscribe -->
       <a class="button" href="{{ "/feed.xml" | relative_url }}">Subscribe</a>
     </div>
   </section>

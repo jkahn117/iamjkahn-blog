@@ -23,6 +23,24 @@ twitter_username: joshuaakahn
 github_username:  jkahn117
 show_excerpts: true
 
+# Pagination
+pagination:
+  enabled: true
+  per_page: 3
+  permalink: '/page/:num/'
+  title: ':title - page :num'
+  sort_field: date
+  sort_reverse: true
+  trail:
+    before: 2
+    after: 2
+
+permalink: /:year/:month/:title.html
+
+# Header
+header_pages:
+  - about.md
+
 # Build settings
 markdown: kramdown
 theme: minima
@@ -30,6 +48,7 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-gist
+  - jekyll-paginate-v2
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
