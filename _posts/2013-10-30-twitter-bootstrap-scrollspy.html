@@ -1,0 +1,83 @@
+---
+layout: post
+title: Twitter Bootstrap Scrollspy
+date: 2013-10-30 15:05:26.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Boostrap
+tags:
+- Bootstrap
+- Twitter Bootstrap
+meta:
+  _edit_last: '404795'
+  publicize_twitter_user: joshuaakahn
+  publicize_twitter_url: http://t.co/dh2aANtOAG
+  _wpas_done_944212: '1'
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:193406412;b:1;}}
+author: jkahn
+---
+<p>Implementing Twitter Bootstrap 3's Scrollspy plug-in took a bit of trial-and-error, below is my approach and findings for posterity sake (and perhaps someone else's benefit in the future):</p>
+<p>My goal was to implement a menu listing on the left with content on the right for an FAQ page.  Bootstrap 3's <a href="http://getbootstrap.com/components/#navbar">navbar</a> was not the right fit, the <a href="http://getbootstrap.com/components/#list-group">list-group</a> was closer, but not perfect (more on that later).</p>
+<p>A few findings of note:</p>
+<ul>
+<li>Scrollspy is built to work with <code>li</code> elements that are children of an element of class <code>.nav</code>.  See <a href="https://github.com/twbs/bootstrap/blob/master/js/scrollspy.js">Scrollspy source</a>.</li>
+<li>Scrollspy keeps an eye on any element with a scrollbar, but for most page, this is going to be the page itself, which in reality is the <code>body</code> element.  If you have a frame with scrollbars (a la the Bootstrap documentation sample), Scrollspy will work, but this is atypical.</li>
+<li>While Scrollspy watches a scrollable element, events are fired on the navigation element.</li>
+</ul>
+<p>Let's get to the details.  Bottom line is available as a <a href="http://jsfiddle.net/TFhGa/24/">JSFiddle</a>.</p>
+<h1>HTML</h1>
+<p>The HTML used here is fairly simple, utilizing Bootstrap classes to style a left-hand navigation built with a list-group and content on the right.</p>
+<pre>&lt;div class="row"&gt;
+  &lt;div class="col-sm-4 col-xs-4" id="nav"&gt;
+    &lt;ul class="nav list-group affix"&gt;
+      &lt;li class="list-group-item"&gt;&lt;a href="#g1"&gt;Item 1&lt;/a&gt;&lt;/li&gt;
+      &lt;li class="list-group-item"&gt;&lt;a href="#g2"&gt;Item 2&lt;/a&gt;&lt;/li&gt;
+      &lt;li class="list-group-item"&gt;&lt;a href="#g3"&gt;Item 3&lt;/a&gt;&lt;/li&gt;
+      &lt;li class="list-group-item"&gt;&lt;a href="#g4"&gt;Item 4&lt;/a&gt;&lt;/li&gt;
+      &lt;li class="list-group-item"&gt;&lt;a href="#g5"&gt;Item 5&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+  &lt;div class="col-sm-8 col-xs-8"&gt;
+    &lt;section id="g1"&gt;Content 1&lt;/section&gt;
+    &lt;section id="g2"&gt;Content 2&lt;/section&gt;
+    &lt;section id="g3"&gt;Content 3&lt;/section&gt;
+    &lt;section id="g4"&gt;Content 4&lt;/section&gt;
+    &lt;section id="g5"&gt;Content 5&lt;/section&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+<p>Although possible, I chose not to use Bootstrap's declarative interface to add Scrollspy here because as part of a larger application, another template defines the <code>body</code> element.</p>
+<h1>JavaScript</h1>
+<p>As explained above, adding Scrollspy to the body element typically makes the most sense; however, some of the other articles / discussions on this topic seemed incorrect.</p>
+<pre>$(document).ready(function() {
+  // plugin is applied to a scrollable element, targeting my navigation element
+  $('body').scrollspy({ 'target': '#nav', 'offset': 10 });
+
+  // listen for scrollspy events on the navigation element itself
+  $('#nav').on('activate.bs.scrollspy', function() {
+    console.log('scroll spy!!')
+  });
+});</pre>
+<h1>CSS</h1>
+<p>Finally, a bit of CSS to pretty things up and style the list-group to look as desired (very simple approach for demonstration):</p>
+<pre>section {
+ height: 250px;
+ background-color: #eee;
+ padding: 10px;
+ margin: 10px 0;
+}
+li.list-group-item:hover {
+ background-color: #eee;
+ cursor: pointer;
+}
+li.list-group-item.active &gt; a,
+li.list-group-item.active &gt; a:hover,
+li.list-group-item.active &gt; a:focus {
+ color: #fff;
+ background-color: #428BCA;
+}</pre>
+<p>Depending on your content, you may need to change the offset.</p>
+<p>That's it.  Again, the <a href="http://jsfiddle.net/TFhGa/24/">JSFiddle</a> has a working example.</p>

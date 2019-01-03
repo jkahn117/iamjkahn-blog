@@ -1,0 +1,73 @@
+---
+layout: post
+title: Getting Started with Adobe LiveCycle Data Services and Java
+date: 2007-10-30 15:03:22.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Data Services
+- Flex
+tags: []
+meta: {}
+author: jkahn
+---
+<p><strong>Update</strong>: Unfortunately, it didn’t take much longer before this configuration ran into memory and other problems.  I am looking into other options that are more robust.</p>
+<p>Over the past few days, I’ve been experimenting with Adobe LiveCycle Data Services and Java to build a Java-backed Flex application.  Over the next few posts, I will chronicle my experiences in the hopes of others avoiding some of the pitfalls I have encountered.</p>
+<p><strong>Setup</strong></p>
+<p>To get started, we’ll set-up and configure our development environment.  In order to support development of both the client (Flex) and server (Java), I wanted to configure my IDE to handle both Flex and Java EE.</p>
+<p><em>Note:</em> I always like to use the latest and greatest, but Flex Builder 3 beta 2 and Eclipse 3.3 do <strong>not</strong> play nicely together.  This configuration led to an “Out of Memory” error every twenty minutes or so, which became unmanageable.  The approach I followed utilizes Flex Builder 2 with Eclipse 3.3, this is not a support configuration, but it is done in a way that allows you to easily disable the Flex Builder features if desired.</p>
+<p><u>Software</u></p>
+<ul>
+<li><a href="http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/20070927/eclipse-jee-europa-fall-win32.zip">Eclipse 3.3 for Java EE Developers</a></li>
+<li><a href="http://www.adobe.com/products/flex/flexbuilder/">Flex Builder 2</a> (free 30 day trial available)</li>
+<li><a href="http://www.adobe.com/products/livecycle/dataservices/">LiveCycle 2.5.x</a></li>
+<li>Flex SDK 2.01 hotfix 2 (included in the above FB distribution)</li>
+</ul>
+<p><u>Installation</u></p>
+<ol>
+<li>Download all of the above packages.</li>
+<li>Extract Eclipse to a known location.  I used “C:\eclipse3.3”</li>
+<li>Install Flex Builder 2 at “C:\Program Files\Adobe\Flex Builder 2” as the <em>stand alone</em> version, not the plug-in</li>
+<li>Install LiveCycle Data Services at “C:\Program Files\Adobe\lcds”</li>
+</ol>
+<p><u>Configure Eclipse</u></p>
+<p>Out of the box, Flex Builder 2 does not work with Eclipse 3.3.  A <a href="http://blog.aerothread.net/bumble/2007/09/26/how-install-flexbuilder-2-under-eclipse-3.3">detailed tutorial on how to configure Eclipse to use Flex Builder 2</a> is available, but the following is the process that I utilized:</p>
+<ol>
+<li>Create a new Eclipse extension:
+<ol>
+<li>Create a new directory “C:\eclipse3.3\extensions” and a second directory “C:\eclipse3.3\extensions\eclipse”</li>
+<li>In this directory, create an empty “.eclipseextension” file (<em>hint:</em> from a command prompt, enter “echo &gt; .eclipseextension”)</li>
+<li>Create two additional directories in the new eclipse directory: “plugins” and “features”</li>
+<li>In Eclipse, select <strong>Help &gt; Software Updates &gt; Manage Configuration…</strong></li>
+<li>In the right panel, click on “Add an Extension Location”</li>
+<li>Navigate to “C:\eclipse3.3\extensions” and click “Ok”</li>
+<li>Close Eclipse</li>
+</ol>
+</li>
+<li>If you have a license for Flex Builder 2, you should launch Flex Builder and enter the license key now.  You can then close FB.</li>
+<li>We will now merge Flex Builder into Eclipse:
+<ol>
+<li>Copy “C:\Program Files\Adobe\Flex Builder 2\configuration\com.adobe.flexbuilder.”</li>
+<li>Copy “C:\Program Files\Adobe\Flex Builder 2\features\com.adobe.flexbuilder.*” to your extension feature directory “C:\eclipse3.3\extensions\eclipse\features.”</li>
+<li>Copy “C:\Program Files\Adobe\Flex Builder 2\features\com.adobe.flexbuilder.*” to your extension plugins directory “C:\eclipse3.3\extensions\eclipse\plugins.” <em>Note:</em> There are directories and jar files that need to be copied.</li>
+</ol>
+</li>
+<li>Finally, restart Eclipse via the clean option (open a command prompt at “C:\eclipse3.3” and enter “eclipse – – clean”).  This forces a reload of all Eclipse plugins.</li>
+</ol>
+<p>You can verify that Flex Builder capabilities have been installed by checking if the “Flex Development” perspective is available (<strong>Window &gt; Open Perspective &gt; Other</strong>).</p>
+<p>Finally, we will install Peter Martin’s outstanding <a href="http://weblogs.macromedia.com/pmartin/archives/2007/01/fds_plugin_2_be.cfm">FDS plugin</a>, which we can use to generate application skeletons for LCDS projects:</p>
+<ol>
+<li><a href="http://weblogs.macromedia.com/pmartin/eclipse/com.adobe.flex.enterprise.site.zip">Download </a>the plugin</li>
+<li>Launch Eclipse (if not already open)</li>
+<li>Select <strong>Help &gt; Software Updates &gt; Find and Install</strong></li>
+<li>Select <strong>Search for new features to install</strong></li>
+<li>Click <strong>New Archived Site</strong></li>
+<li>Select the plugin ZIP file you downloaded</li>
+<li>Click <strong>Finish</strong></li>
+<li>Check the feature</li>
+<li>Complete the wizard and restart Eclipse when prompted</li>
+</ol>
+<p>I’ve been running this configuration for some time now and it seems to be stable (i.e. no Out of Memory errors).  I will post updates with any glitches that need to be fixed.</p>

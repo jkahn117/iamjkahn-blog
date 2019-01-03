@@ -1,0 +1,92 @@
+---
+layout: post
+title: Sticky Navigation Bar with Skrollr
+date: 2014-02-17 22:41:56.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Web Design
+tags: []
+meta:
+  _edit_last: '404795'
+  publicize_twitter_url: http://t.co/YZ6DtQdpSk
+  publicize_twitter_user: joshuaakahn
+  _wpas_done_944212: '1'
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:193406412;b:1;}}
+  _wpas_skip_944212: '1'
+author: jkahn
+---
+<p>Parallax scrolling seems to be all the rage in web design these days.  It has a level of interactivity and richness that puts  the old click-and-wait experience to shame.  From simple and subtle (MMQB) to the complex (The Walking Dead), parallax can add a nice design flourish to most websites.  Of course, even simple effects are not free.</p>
+<p>While redesigning a small business website, I wanted to add a few small touches to jazz up the minimal content, so I decided to add a spice of scrolling animations to the site.  In evaluating my options, I settled on <a href="https://github.com/Prinzhorn/skrollr">Skrollr</a>, which had the right mix of power and simplicity.  Skrollr is driven by CSS and HTML tag attributes, meaning there is little complex JavaScript for the end user, plus it works seamlessly across desktop and mobile.</p>
+<p>Adding a stick navigation bar that drops in from the top of the screen using Skrollr was fairly straightforward, with two caveats that I will cover at the end of the article.</p>
+<p>If you want to get to the end result: <a href="http://jsfiddle.net/jkahn/jaQFZ/5/">JSFiddle</a></p>
+<p>First, our HTML markup before adding Skrollr:<br />
+[code language="html"]<br />
+&lt;nav class=&quot;wrap&quot;&gt;<br />
+  &lt;div class=&quot;container&quot;&gt;<br />
+    &lt;div class=&quot;five columns&quot;&gt;My Company&lt;/div&gt;<br />
+    &lt;div class=&quot;eleven columns last&quot;&gt;<br />
+      &lt;ul&gt;<br />
+        &lt;li&gt;&lt;a href=&quot;#1&quot;&gt;Item 1&lt;/a&gt;&lt;/li&gt;<br />
+        &lt;li&gt;&lt;a href=&quot;#2&quot;&gt;Item 2&lt;/a&gt;&lt;/li&gt;<br />
+        &lt;li&gt;&lt;a href=&quot;#3&quot;&gt;Item 3&lt;/a&gt;&lt;/li&gt;<br />
+        &lt;li&gt;&lt;a href=&quot;#4&quot;&gt;Item 4&lt;/a&gt;&lt;/li&gt;<br />
+      &lt;/ul&gt;<br />
+    &lt;/div&gt;<br />
+  &lt;/div&gt;<br />
+&lt;/nav&gt;<br />
+[/code]</p>
+<p>Simple.  Now, we can improve the style of the menu and also stick it to the top of the page via CSS.  We'll also add some transparency so it appears the page is passing under the menu as we scroll.</p>
+<p>[code language="css"]<br />
+nav {<br />
+  background-color: rgba(255, 255, 255, 0.9);<br />
+  border: 1px solid red;<br />
+  height: 55px;<br />
+  top: 0;<br />
+  position: absolute; /* hold tight... */<br />
+  visibility: none;   /* we'll override these shortly */<br />
+  z-index: 1000;<br />
+}</p>
+<p>/** some additional styling for navigation elements... **/<br />
+[/code]</p>
+<p>At this point, we should have a nice little navigation bar.  It's stuck at the top of the page and scrolls with the page though.  Functionally, when the header is mostly off screen and then content is reaching the top of the viewport is when the navigation should slide in.  Let's modify our HTML to include Skrollr.  </p>
+<p>[code language="html"]<br />
+&lt;nav class=&quot;wrap&quot;<br />
+     data-anchor-target=&quot;#content&quot;<br />
+     data-200-top=&quot;opacity:0;&quot;<br />
+     data-150-top=&quot;visibility:visible; top: -55px; opacity: 0.3;&quot;<br />
+     data-100-top=&quot;opacity: 1; position: fixed; top: 0;&quot;&gt;<br />
+  &lt;div class=&quot;container&quot;&gt;<br />
+    &lt;div class=&quot;five columns&quot;&gt;My Company&lt;/div&gt;<br />
+    &lt;div class=&quot;eleven columns last&quot;&gt;<br />
+      &lt;ul&gt;<br />
+        &lt;li&gt;&lt;a href=&quot;#1&quot;&gt;Item 1&lt;/a&gt;&lt;/li&gt;<br />
+        &lt;li&gt;&lt;a href=&quot;#2&quot;&gt;Item 2&lt;/a&gt;&lt;/li&gt;<br />
+        &lt;li&gt;&lt;a href=&quot;#3&quot;&gt;Item 3&lt;/a&gt;&lt;/li&gt;<br />
+        &lt;li&gt;&lt;a href=&quot;#4&quot;&gt;Item 4&lt;/a&gt;&lt;/li&gt;<br />
+      &lt;/ul&gt;<br />
+    &lt;/div&gt;<br />
+  &lt;/div&gt;<br />
+&lt;/nav&gt;<br />
+[/code]</p>
+<p>We're doing a few things above:</p>
+<ol>
+<li>We use the <code>data-anchor-target</code> attribute and provided CSS selector to identify the page element on which the animation frames are triggered. Skrollr by default uses the tagged element, but can reference on the page via CSS.</li>
+<li>Animating the opacity, position, and visibility of the nav element.  Skrollr handles the animation between the values, e.g. it "slides" the nav into place to animate the top position.</li>
+<li>Set the element as fixed on the page.</li>
+</ol>
+<p>That's it.  As you can see in the <a href="http://jsfiddle.net/jkahn/jaQFZ/5/">JS Fiddle</a>, this requires only minimal code and its fairly straightforward, except for two items:</p>
+<p><strong>Frame Positioning</strong><br />
+Skrollr supports both absolute and relative positioning on the page, which is useful, though it took me a bit to wrap my head around it (and some trial-and-error).  In this case, we are monitoring how close the content element is from the top of the viewport - as it gets closer, we animate in the nav (starting at 200 pixels from top and completing at 100 pixels).  There is a nice graphic on the Skrollr website that helps in this regard, but depending on the animation/effect you wish to create, you may need to experiment:</p>
+<p><img src="{{ site.baseurl }}/assets/images/skrollr.png" alt="Skrollr Positioning" /></p>
+<p><strong>Mobile Support</strong><br />
+The Skrollr website has a great overview of how the library compensates for deferred processing of JavaScript in mobile browsers to fake scrolling. Because our example has both fixed and non-fixed elements on the page, we need to add a <code>skrollr-body</code> element that contains the scrollable content of our page (note in the Fiddle that the nav is not in this block).  If you do not include the <code>skrollr-body</code> element, your page will not scroll properly, if at all.</p>
+<p>This is just one example of adding a few small enhancements to a simple page, Skrollr can enable much, much more.</p>
+<p><a href="http://jsfiddle.net/jkahn/jaQFZ/5/">Complete Example</a></p>
+<p><strong>References</strong></p>
+<ul>
+<li><a href="https://github.com/Prinzhorn/skrollr">Skrollr</a></li>
+</ul>

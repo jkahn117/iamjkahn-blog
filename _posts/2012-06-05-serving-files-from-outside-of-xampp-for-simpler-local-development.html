@@ -1,0 +1,55 @@
+---
+layout: post
+title: Serving Files from Outside of XAMPP for Simpler Local Development
+date: 2012-06-05 15:41:01.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _edit_last: '404795'
+  _wpas_skip_twitter: '1'
+author: jkahn
+---
+<p>I recently started working with Aptana (customized build of Eclipse) for PHP and web development and wanted to simplify publishing to the local XAMPP server I use for development.  Copying files back and forth was fun, but there is an easier way...</p>
+<p>Using Apache virtual hosts, you can easily setup a second document root to serve content directly from your Aptana/Eclipse workspace (I'm on Windows, but same will work for any OS):</p>
+<ol>
+<li>Open C:\xampp\apache\conf\extra\httpd-vhosts.conf in your favorite text editor.</li>
+<li>Uncomment (remove the "#") line 19 - "NameVirtualHost *:80"</li>
+<li>Uncomment the block of XML starting at line 27 to read as follows:<br />
+<code><br />
+&lt;VirtualHost *:80&gt;<br />
+  DocumentRoot "C:\your-aptana-workspace-directory"<br />
+  ServerName workspace.localhost<br />
+  &lt;Directory "C:\your-aptana-workspace-directory"&gt;<br />
+    Order allow,deny<br />
+    Allow from all<br />
+  &lt;/Directory&gt;<br />
+  ErrorLog "logs/workspace.localhost-error.log"<br />
+  CustomLog "logs/workspace.localhost-access.log" combined<br />
+&lt;/VirtualHost&gt;<br />
+</code>
+        </li>
+<li>Open C:\Windows\System32\drivers\etc with Notepad, running as Administrator.  (This is for Win7, hosts file exists elsewhere on other systems.)</li>
+<li>Enter the following and save:</li>
+<p><code><br />
+127.0.0.1	localhost workspace.localhost<br />
+</code>
+</ol>
+<p>Restart XAMPP and browse to http://workspace.localhost/your-project-name and you should be good to go.  Simple.</p>
+<p><strong>Update:</strong> After reviewing, I noticed that you will also need to add a second virtual host so that localhost continues to respond as previously.</p>
+<p><code><br />
+&lt;VirtualHost *:80&gt;<br />
+  DocumentRoot "C:\xampp\htdocs"<br />
+  ServerName localhost<br />
+  &lt;Directory "C:\xampp\htdocs"&gt;<br />
+    Order allow,deny<br />
+    Allow from all<br />
+  &lt;/Directory&gt;<br />
+  ErrorLog "logs/error.log"<br />
+  CustomLog "logs/access.log" combined<br />
+&lt;/VirtualHost&gt;<br />
+</code></p>

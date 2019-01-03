@@ -1,0 +1,29 @@
+---
+layout: post
+title: 'Update: Creating the Skeleton for a New LCDS Application'
+date: 2007-11-01 14:19:05.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Flex
+tags: []
+meta: {}
+author: jkahn
+---
+<p>First, the good news&hellip;my LCDS development environment and server have been running since yesterday afternoon (15+ hours) without a failure yet.&nbsp; If you missed the set-up, check my earlier post <a href="http://iamjosh.wordpress.com/2007/10/31/finallya-working-lcds-development-environment/">Finally&hellip;A Working LCDS Development Environment</a>.</p>
+<p>Since getting the development environment set-up, I&rsquo;ve been working on building a sample LCDS application, which I will post on this site when finished.&nbsp; The first step is building the application skeleton to support both Flex and Java development.&nbsp; I posted an article on this earlier in the week (<a href="http://iamjosh.wordpress.com/2007/10/30/creating-the-skeleton-for-a-new-lcds-application/">Creating the Skeleton for a New LCDS Application</a>), but my current approach turned out to be slightly different.&nbsp; The major differences were: (1) included the web app in an EAR project for deployment and (2) utilized JBoss 4.0 instead of 4.2.</p>
+<p>In the end, you should have a project structure similar to the following, with the exception of the Spring (applicationContext.xml) and Hibernate (hibernate.cfg.xml) configuration files.&nbsp; These files were added as part of my web app development and I will cover their purpose in my next post.</p>
+<p align="center"><img alt="LCDS Application Structure" src="{{ site.baseurl }}/assets/images/lcds-20application-20structure-small.jpg" border="0" /></p>
+<p>I also needed to modify my project&rsquo;s Flex and Java compiler settings to get everything working properly.&nbsp; In the project properties menu (right click on project name and select &ldquo;Properties&rdquo;), do the following:</p>
+<ol>
+<li>Select &ldquo;Project Facets&rdquo; and the click on the &ldquo;Add/Remove Project Facets&rdquo; button.</li>
+<li>Select the Java facet version and select &ldquo;6.0.&rdquo;&nbsp; Java 6 is not necessary at this point, but some of the Hibernate code that I will be using requires it.</li>
+<li>Click &ldquo;Finish&rdquo;</li>
+<li>Select &ldquo;Java Compiler&rdquo; from the left hand menu and set the &ldquo;Compiler Compliance Level&rdquo; to 6.0.</li>
+<li>Select &ldquo;Flex Compiler&rdquo; from the left menu and set the &ldquo;Flex SDK Version&rdquo; to &ldquo;Use the server&rsquo;s SDK.&rdquo;</li>
+</ol>
+<p>You may notice that the server&rsquo;s Flex SDK is version 2.0.1 and not 3.0.&nbsp; Because of changes to resource bundle handling in 3.0, Flex will not compile our application as-is with the 3.0 SDK.&nbsp; I am still working to resolve this issue, but for now, Flex 2.0 is sufficient for our purposes (please feel free to share insights via comments).</p>
+<p>Next up, building the sample application.</p>

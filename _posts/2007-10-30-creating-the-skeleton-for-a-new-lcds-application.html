@@ -1,0 +1,39 @@
+---
+layout: post
+title: Creating the Skeleton for a New LCDS Application
+date: 2007-10-30 15:43:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Flex
+tags: []
+meta: {}
+author: jkahn
+---
+<p>Before we can generate the skeleton for our new LCDS application, we need to identify where the data services package has been installed on your computer.  To do this:</p>
+<ol>
+<li>Launch Eclipse</li>
+<li><strong>Window &gt; Preferences…</strong></li>
+<li>Expand “Flex Data Services” and select “FDS Installations”</li>
+<li>Click the new button and edit the path to “C:\Program Files\Adobe\lcds\flex.war”</li>
+<li>Click OK</li>
+</ol>
+<p>We will now utilize Peter Martin’s FDS Plugin (installation explained in my <a href="http://iamjosh.wordpress.com/2007/10/30/getting-started-with-adobe-livecylce-data-services-and-java/">previous post</a>) to generate our application skeleton:</p>
+<ol>
+<li><strong>New &gt; Project…</strong></li>
+<li>Expand “Flex Data Services” and select “Flex Data Services Project”</li>
+<li>Click Next</li>
+<li>Enter a project name (e.g. “HelloWorld”)</li>
+<li>In the Target Runtim area, you can click the new button to create a Server configuration on which to run your project.  In my case, I will be using JBoss 4.2.  Adobe explains how to <a href="http://help.adobe.com/en_US/livecycle/es/lcds_installation.html#flexj2ee">install LCDS as a web application </a>on several platforms.</li>
+<li>Click Next</li>
+<li>On the Project Facets screen, you will need to change the version of the Dynamic Web Module (there is a small black arrow to the right of the version number) for it to work with the FDS Plugin.</li>
+<li>Click Next</li>
+<li>Accept the defaults and click Next</li>
+<li>On the “Flex Data Services” screen, you will need to select the Flex WAR that we installed above (probably “fds1”), you can accept all other defaults</li>
+<li>Click Finish</li>
+</ol>
+<p>When the wizard finishes, you should have a brand new LCDS application ready to go that includes handling for both Flex (client) and Java (server) components.</p>
+<p>In future posts, I hope to explore the development of our application a bit further.</p>

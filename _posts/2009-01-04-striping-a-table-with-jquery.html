@@ -1,0 +1,50 @@
+---
+layout: post
+title: Striping a table with jQuery
+date: 2009-01-04 01:52:17.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- jQuery
+tags: []
+meta:
+  _edit_last: '404795'
+  _oembed_e0179d73a74df75d06b9ef2fa89480f6: "{{unknown}}"
+  _oembed_dca7b6fd1fd8e53fa4b8421534769ae8: "{{unknown}}"
+author: jkahn
+---
+<p>jQuery makes striping an HTML table very simple with what amounts to a one line function.  First, let's start with our HTML:</p>
+<p><code><br />
+&lt;table class="striped"&gt;<br />
+  &lt;tr&gt;<br />
+    &lt;td&gt;Lorem&lt;/td&gt;<br />
+    &lt;td&gt;ipsum&lt;/td&gt;<br />
+  &lt;/tr&gt;<br />
+  &lt;tr&gt;<br />
+    &lt;td&gt;dolor&lt;/td&gt;<br />
+    &lt;td&gt;sit&lt;/td&gt;<br />
+  &lt;/tr&gt;<br />
+  &lt;tr&gt;<br />
+    &lt;td&gt;amet&lt;/td&gt;<br />
+    &lt;td&gt;consectetur&lt;/td&gt;<br />
+  &lt;/tr&gt;<br />
+&lt;/table&gt;</code></p>
+<p>Should be pretty straightforward.  Notice that we haven't done anything bayond a simple table here, no styling, nothing.  Next, we can create a simple CSS style for our alternating rows:</p>
+<p><code><br />
+tr.alt {<br />
+  background-color: #ebe9dc;<br />
+  }<br />
+</code></p>
+<p>Finally, let's create a Javascript function that we can call to stripe the table:</p>
+<p><code><br />
+jQuery.fn.stripe = function() {<br />
+  return this.each(function(){<br />
+    $('tbody &gt; tr:even', this).addClass('alt');<br />
+  });<br />
+};<br />
+</code></p>
+<p>Again, this function primarily boils down to one line, the rest is <a href="http://docs.jquery.com/Plugins/Authoring">boilerplate</a> jQuery plugin code that allows us to make calls to the function as follows <code>$('table.striped').stripe</code>.  </p>
+<p>The power here is the line <code>$('tbody &gt; tr:even', this).addClass('alt');</code>.  Here, we are using selectors mixed with the scope of "this" (i.e. table's with class "striped") to select the even rows in the table and apply the class "alt" which we defined earlier in our style sheet to them.</p>

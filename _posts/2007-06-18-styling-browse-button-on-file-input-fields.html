@@ -1,0 +1,46 @@
+---
+layout: post
+title: Styling "Browse…" button on file input fields
+date: 2007-06-18 16:39:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Rails
+tags:
+- css
+meta:
+  blogger_blog: railsrockit.blogspot.com
+  blogger_author: Josh
+  blogger_permalink: "/2007/06/styling-browse-button-on-file-input.html"
+author: jkahn
+---
+<p>So this first post isn't about Ruby or Rails, but something that I've struggled to figure out for some time now...how to style that silly "Browse..." button that appears when you create a file upload field in an HTML form.</p>
+<p><a href="http://www.quirksmode.org/dom/inputfile.html">Quirksmode</a> proposes two solutions, one CSS-based and other reliant on Javascript.  My preference is the CSS technique as Javascript tends to be more hit or miss:</p>
+<blockquote><p><code><br />
+div.fileinputs {<br />
+position: relative;<br />
+}</code></p>
+<p>div.fakefile {<br />
+position: absolute;<br />
+top: 0px;<br />
+left: 0px;<br />
+z-index: 1;<br />
+}</p>
+<p>input.file {<br />
+position: relative;<br />
+text-align: right;<br />
+-moz-opacity:0 ;<br />
+filter:alpha(opacity: 0);<br />
+opacity: 0;<br />
+z-index: 2;<br />
+}</p>
+<p>&lt;div class="fileinputs"&gt;<br />
+&lt;input type="file" class="file" /&gt;<br />
+&lt;div class="fakefile"&gt;<br />
+&lt;input /&gt;<br />
+&lt;img src="search.gif" /&gt;<br />
+&lt;/div&gt;<br />
+&lt;/div&gt;</p></blockquote>

@@ -1,0 +1,141 @@
+---
+layout: post
+title: Flex in Application Logging
+date: 2007-12-21 21:43:51.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Flex
+tags: []
+meta:
+  _oembed_91d396e73156b5683d4301397cd50c7f: "{{unknown}}"
+  _oembed_8dcab96aaa9dfdcfa78855c1078007af: "{{unknown}}"
+  _oembed_a6c38a83ee4e9c74ca957c26bac6f047: "{{unknown}}"
+  _oembed_4efee2532fdcc370205b42c0b214e10e: "{{unknown}}"
+  _oembed_6bdffcf62da1eceff83cc69522305ee2: "{{unknown}}"
+author: jkahn
+---
+<p>For an LCDS application that we are building, I wanted to be able to display log messages to the screen, such as "Sending request to server" and "Received server response: OK."  Although this has little to do with actual functionality, I wanted to document my efforts to create this component.</p>
+<p>To utilize the Flex logging framework, we need to provide a Logger and a Log Target.  The Logger, of course, does the logging itself based on two factors: (1) its category and (2) the logging level.  This is similar to the operation of the popular Java logging framework <a href="http://logging.apache.org/log4j/" target="_blank">Log4J</a>.  The Log Target defines where the messages are written.  Flex comes with the <code>TraceTarget</code> predefined - this is the target for all <code>trace()</code> statements.  For this example, I will also provide an MXML component that can be used to display log messages on screen.</p>
+<p>First, the <code>Logger</code> class:</p>
+<pre>
+    public class Logger
+    {
+        //~ Instance Attributes -----------------------------------------------
+        private var logger : ILogger;
+
+        //~ Constructor -------------------------------------------------------
+        /**
+         * SingletonEnforcer parameter ensures that only the getInstance
+         * method can create an instance of this class.
+         */
+        public function Logger(category : String, enforcer : SingletonEnforcer) : void
+        {
+            this.logger = Log.getLogger(category);
+        }
+
+        //~ Methods -----------------------------------------------------------
+        public static function getInstance(category : String) : Logger
+        {
+            return new Logger(category, new SingletonEnforcer());
+        }
+
+        public static function addTarget(target : ILoggingTarget) : void
+        {
+            Log.addTarget(target);
+        }
+
+        public static function removeTarget(target : ILoggingTarget) : void
+        {
+            Log.removeTarget(target);
+        }
+
+        public function debug(message : String) : void
+        {
+            this.logger.debug(message);
+        }
+
+        // other logging methods by level (e.g. warn, error)
+
+    }</pre>
+<p>With our <code>Logger</code> class in place, we can now define a <code>LogTarget</code> class that defines a <code>TextArea</code> to which the log messages will be written:</p>
+<pre>
+    // be sure to use the mx_internal namespace (and import it)
+    import mx.core.mx_internal;
+    use namespace mx_internal;
+
+    public class LogPanelTarget extends LineFormattedTarget
+    {
+        private var console : TextArea;
+
+        public function LogPanelTarget(console : TextArea)
+        {
+            super();
+            this.console = console;
+        }
+
+        override mx_internal function internalLog(message : String) : void
+        {
+            this.console.text += message + "\n";
+            }
+        }
+    }</pre>
+<p>Finally, our <code>LogPanel</code> MXML component brings everything together by (1) instantiating a new <code>Logger</code> and (2) providing a TextArea for log messages:</p>
+<pre>
+&lt;mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+        width="300" height="300" initialize="init()"&gt;
+    &lt;mx:Script&gt;
+        &lt;![CDATA[
+            import mx.logging.Log;
+            import mx.logging.LogEventLevel;
+            import mx.collections.ArrayCollection;
+
+            public  var open   : Boolean = true;
+            private var target : LogPanelTarget;
+            [Bindable] private var targets : ArrayCollection;
+
+            private function init() : void
+            {
+                this.target = new LogPanelTarget(output);
+                // here we define which categories are written to our target
+                this.target.filters = ["iamjosh.samples.*"];
+                // and here which log levels are written
+                this.target.level   = LogEventLevel.ALL;
+                this.target.includeCategory = true;
+                this.target.includeTime = true;
+                Logger.addTarget(this.target);
+            }
+
+            private function setVerticalPosition() : void
+            {
+                this.output.verticalScrollPosition =
+                        this.output.maxVerticalScrollPosition + 1;
+            }
+        ]]&gt;
+    &lt;/mx:Script&gt;
+
+    &lt;mx:TextArea  id="output" x="0" y="0" width="100%" height="100%"
+            editable="false" updateComplete="this.setVerticalPosition()"
+            verticalScrollPolicy="on"/&gt;
+&lt;/mx:Canvas&gt;</pre>
+<p>We can now include the <code>LogPanel</code> component anywhere we wish and log messages from anywhere in our code within the category "iamjosh.samples.*" will be written to it.  For example:</p>
+<pre>
+    public class Foo
+    {
+        // notice that we provide a category here, this determines if the log
+        // message will be written to a give LogTarget
+        private var logger : Logger = Logger.getInstance("iamjosh.samples.Foo");
+
+        public function logSomething() : void
+        {
+            this.logger.debug("I log because I can");
+        }
+    }</pre>
+<p>That's it.  Although I would prefer to define where my log messages go external to the code, Flex's logging framework is fairly straightforward and easy to work with.</p>
+<p><b>References</b></p>
+<ul>
+<li><a href="http://livedocs.adobe.com/flex/2/docs/wwhelp/wwhimpl/common/html/wwhelp.htm?context=LiveDocs_Parts&amp;file=00001533.html">http://livedocs.adobe.com/flex/2/docs/wwhelp/wwhimpl/common/html/wwhelp.htm?context=LiveDocs_Parts&amp;file=00001533.html</a></li>
+</ul>

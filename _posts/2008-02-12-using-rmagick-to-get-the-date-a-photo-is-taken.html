@@ -1,0 +1,35 @@
+---
+layout: post
+title: Using RMagick and EXIF to get the date a photo is taken in Rails
+date: 2008-02-12 04:20:02.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Rails
+tags: []
+meta: {}
+author: jkahn
+---
+<p>Wow, it's been a long time since my last Rails-related post (actually months).  That's because it's been about that long since I've done much in the way of Rails development. Over the past few weeks, I've been rebuilding my personal website in Rails 2.0, which (per my wife's requirements) will include a photo gallery.</p>
+<p>My <code>Photo</code> class utilized attachment_fu to easily support image uploads.  I also wanted to be able to display the date the photo <i>was taken</i>, not the date is was uploaded.  This information is encoded in the JPEG image file by the digital camera, we just need to pull it out.  Although there are several methods to do this, I chose to use RMagick as it is already included in my application for attachment_fu.  We can use the <code>get_exif_by_entry</code> method to get this (as well as a great deal of other) information:</p>
+<pre>
+class Photo  &lt; ActiveRecord::Base
+  @@exif_date_format = '%Y:%m:%d %H:%M:%S'
+  cattr_accessor :exif_date_format
+
+  # some stuff
+
+  def date_taken
+    photo = Magick::Image.read(full_filename).first
+    # the get_exif_by_entry method returns in the format: [["Make", "Canon"]]
+    date  = photo.get_exif_by_entry('DateTime')[0][1]
+    return unless date
+    DateTime.strptime(date, exif_date_format)
+  end
+
+  #some more stuff
+end</pre>
+<p>That's it.  Read the <a href="http://www.exif.org/">EXIF</a> information, provide it's format, and create a new <code>DateTime</code> object.</p>

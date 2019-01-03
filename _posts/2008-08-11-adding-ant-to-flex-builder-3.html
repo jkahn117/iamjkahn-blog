@@ -1,0 +1,27 @@
+---
+layout: post
+title: Adding Ant to Flex Builder 3
+date: 2008-08-11 15:46:57.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Flex
+tags: []
+meta:
+  _edit_last: '404795'
+author: jkahn
+---
+<p>I wanted to use <a href="http://code.google.com/p/cairngen" target="_blank">Cairngen </a>in a recent project and quickly noticed that the standalone version of Flex Builder 3 does not have Ant support available by default.  Getting it set-up is pretty easy though:</p>
+<ol>
+<li>In Flex Builder, Help -&gt; Software Updates -&gt; Find and Install...</li>
+<li>Select "Search for new features to install" and click Next</li>
+<li>Pick "The Eclipse Project Updates" and click Finish</li>
+<li>Expand "The Eclipse Project Updates" and "Eclipse 3.3.2"</li>
+<li>Select "Eclipse Java Development Tools 3.3.2..." and click "Finish"</li>
+<li>When prompted, select "Install All"</li>
+<li>Restart Flex Builder</li>
+</ol>
+<p>When Flex Builder starts up again, you will have Ant support available (e.g. any build.xml files will have a little ant on the icon).  You can also verify by selecting Window -&gt; Other Views... and checked if an Ant directory exists.</p>
