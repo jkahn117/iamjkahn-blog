@@ -1,0 +1,12 @@
+---
+layout: post
+title: Generating a PUT request for an AJAX in place editor - part II
+date: '2007-06-19T11:43:00.000-07:00'
+author: Josh
+tags: 
+modified_time: '2007-06-20T07:52:53.985-07:00'
+blogger_id: tag:blogger.com,1999:blog-7715036645559437704.post-2235581662891363029
+blogger_orig_url: https://railsrockit.blogspot.com/2007/06/generating-put-request-for-ajax-in_19.html
+---
+
+Looks like I jumped the gun on my post yesterday afternoon, I did end up needing to include a parameter name for another AJAX in place editor...<br /><br />Changing the parameter name of the submitted value in the AJAX in place editor required a bit of trickery that I have used before - using the <code>:with</code> option in the Rails tag to include some inline Javascript to "look up" the value on the page before sending the request.<br /><br />To illustrate, let's take an example of wanting to change a user's job title using an inline editor from "supervisor" to "manager" via the UserProfilesController that follows REST principles.<br /><br /><strong>Controller</strong><br /><code><br /># assumes request is from an in place editor with only one attribute to update<br />def update<br />&nbsp;&nbsp;@user_profile = UserProfile.find(params[:id])<br />&nbsp;&nbsp;@user_profile.update_attribute(params[:attr].to_sym, params[:value])<br />end<br /></code><br /><br /><strong>View</strong><br /><code><br />&lt;span id="&lt;%= dom_id(@user_profile) %&gt;"&gt;&lt;%= @user_profile.jobtitle %&gt;&lt;/span&gt;<br />&lt;%= in_place_editor dom_id(@user_profile),<br />&nbsp;&nbsp;:url     => user_profile_url(@user_profile),<br />&nbsp;&nbsp;:options => "{ method:'put' }",<br />&nbsp;&nbsp;:with    => "'jobtitle='+escape($F(Form.findFirstElement(form)))" %&gt;<br /></code><br /><br />The magic here is in the <code>:with</code> option in the <code>in_place_editor</code> tag. We are leveraging the <code>callback</code> option in the <a href="http://wiki.script.aculo.us/scriptaculous/show/Ajax.InPlaceEditor">Ajax.InPlaceEditor</a>, which creates a function that will be called just before the request is sent to the server. The Rails helper only passes one parameter to the callback function that is a pointer to the HTML form element, we need to utilize a little Javascript to look up the value of the in place input field.<br /><br />Now, our controller will receive a parameter with the correct name in the request.  Although I did not do it here, our controller code could also be made to handle arbitrary parameter names in the <code>#update</code> action.
