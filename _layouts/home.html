@@ -2,93 +2,70 @@
 layout: default
 ---
 
-<div class="home">
-  <!-- {%- if page.title -%}
-  <section class="hero">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">{{ page.title | escape }}</h1>
-      </div>
-    </div>
-  </section>
-  {%- endif -%} -->
+<div class="container">
+  <div class="columns">
+    <div class="column is-two-thirds is-offset-2">
+      {%- if paginator.posts.size > 0 -%}
+      <section class="articles">
+        {%- for post in paginator.posts -%}
+        <div class="card article">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content has-text-centered">
+                {%- assign date_format = "%b %d %Y" -%}
+                <p class="subtitle article-subtitle">{{ post.date | date: date_format }}</p>
+                <p class="title article-title">{{ post.title | escape }}</p>
+              </div>
+            </div>
+            {%- if site.show_excerpts -%}
+            <div class="content article-body">
+              {{ post.excerpt }}
+            </div>
+            {%- endif -%}
 
-  {{ content }}
+            <p class="has-text-centered">
+              <a href="{{ post.url | relative_url }}" class="button">Read More</a>
+            </p>
+          </div>
+        </div>
+        {%- endfor -%}
+      </section>
 
-  {%- if site.posts.size > 0 -%}
-  <section class="hero is-primary">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title is-1">{{ page.list_title | default: "Posts" }}</h1>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      {%- for post in paginator.posts -%}
-      <div class="content">
-        <h3 class="title is-3">
-          <a href="{{ post.url | relative_url }}">
-            {{ post.title | escape}}
-          </a>
-        </h3>
-
-        {%- assign date_format = "%b %d %Y" -%}
-        <h4 class="subtitle is-5 has-text-grey-light">{{ post.date | date: date_format }}</h4>
-
-        {%- if site.show_excerpts -%}
-        <p>{{ post.excerpt }}</p>
-        {%- endif -%}
-      </div>
-      {%- endfor -%}
-
-      <!-- Pagination -->
-      {% if paginator.total_pages > 1 %}
-      <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        
-        <a class="pagination-previous"
-           {% if paginator.previous_page %}
+      <!-- pagination -->
+      <section>
+        {% if paginator.total_pages > 1 %}
+        <nav class="pagination" role="navigation" aria-label="pagination">
+          <a class="pagination-previous"
+            {% if paginator.previous_page %}
             href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}"
-           {% else %}
+            {% else %}
             href="#"
             disabled
-           {% endif %}
-           >
-            Older Posts
-        </a>
-
-        {% if paginator.page_trail %}
-          <ul class="pagination-list">
-          {% for trail in paginator.page_trail %}
-          <li>
-            <a class="pagination-link {% if page.url == trail.path %}is-current{% endif %}"
-               href="{{ trail.path | prepend: site.baseurl }}"
-               title="{{ trail.title }}"
-               aria-label="Goto page {{ trail.num }}">
-                {{ trail.num }}
-            </a>
-          </li>
-          {% endfor %}
-          </ul>
+            {% endif %}
+            >
+            Newer Posts
+          </a>
+          <a class="pagination-next"
+            {% if paginator.next_page %}
+              href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}"
+            {% else %}
+              href="#"
+              disabled
+            {% endif %}
+            >
+              Older Posts
+          </a>
+        </nav>
         {% endif %}
-
-        <a class="pagination-next"
-           {% if paginator.next_page %}
-            href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}"
-           {% else %}
-            href="#"
-            disabled
-           {% endif %}
-           >
-            Older Posts
-        </a>
-      </nav>
-      {% endif %}
-
-      <!-- Subscribe -->
-      <a class="button" href="{{ "/feed.xml" | relative_url }}">Subscribe</a>
+      </section>
+      {%- endif -%}
     </div>
-  </section>
-  {%- endif -%}
+
+    <!-- <div class="column">
+      <h3 class="title is-3">Archives</h3>
+      <ul>
+        
+      </ul>
+    </div> -->
+  </div>  
 </div>

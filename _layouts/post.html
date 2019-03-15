@@ -2,62 +2,33 @@
 layout: default
 ---
 
-<article class="post grid-xl" itemscope itemtype="http://schema.org/BlogPosting">
-  <section class="hero is-info">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title is-1">{{ page.title | escape }}</h1>
-        
-        {%- if page.subtitle -%}
-        <h4 class="subtitle is-4">{{ page.subtitle | escape }}</h4>
-        {%- endif -%}
-
-        <div class="by-line media">
-          <figure class="media-left">
-            <p class="image is-64x64">
-              <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-            </p>
-          </figure>
-
-          <div class="media-content">
-            <div class="content">
-              {%- if page.author -%}
-              <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-                <strong itemprop="name">{{ page.author | escape }}</strong>
-                {% if site.twitter_username %}
-                |
-                <a href="https://twitter.com/{{ site.twitter_username | cgi_escape | escape }}">
-                  <span class="username is-size-6">@{{ site.twitter_username| escape }}</span>
-                </a>
-                {% endif %}
-              </span>
-              <br />
-              {%- endif -%}
-              <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+<div class="container">
+  <div class="columns">
+    <div class="column is-two-thirds is-offset-2">
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="card article">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content has-text-centered">
                 {%- assign date_format = "%b %d %Y" -%}
-                {{ page.date | date: date_format }}
-              </time>
+                <p class="subtitle article-subtitle">{{ page.date | date: date_format }}</p>
+                <p class="title article-title">{{ page.title | escape }}</p>
+              </div>
+            </div>
+            <div class="content article-body" itemprop="articleBody">
+              {{ content }}
+
+              <div class="content tags">
+                {% for tag in page.tags %}
+                  {% capture tag_name %}{{ tag }}{% endcapture %}
+                  <span class="tag is-light">{{ tag }}</span>
+                {% endfor %}
+              </div>
+              <a href="{{ page.url | relative_url }}" hidden></a>
             </div>
           </div>
-        </div>        
-      </div>
+        </div>
+      </article>
     </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="content" itemprop="articleBody">
-        {{ content }}
-      </div>
-
-      <div class="tags">
-        {% for tag in page.tags %}
-          {% capture tag_name %}{{ tag }}{% endcapture %}
-          <span class="tag is-light">{{ tag }}</span>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
-
-  <a href="{{ page.url | relative_url }}" hidden></a>
-</article>
+  </div>
+</div>
