@@ -21,6 +21,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://blog.iamjkahn.com"
 twitter_username: joshuaakahn
 github_username:  jkahn117
+medium_username: joshua.a.kahn
 show_excerpts: true
 
 # Pagination

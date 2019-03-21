@@ -18,6 +18,14 @@
               </a>
             </li>
           {%- endif -%}
+          {%- if site.medium_username -%}
+            <li>
+              <span class="icon"><i class="fab fa-medium"></i></span>
+              <a href="https://medium.com/@{{ site.medium_username | cgi_escape | escape }}">
+                <span class="username">{{ site.medium_username | escape }}</span>
+              </a>
+            </li>
+          {%- endif -%}
           {%- if site.github_username -%}
             <li>
               <span class="icon"><i class="fab fa-github"></i></span>
@@ -30,7 +38,10 @@
       </div>
       <div class="column one-third">
         <p>{{- site.description | escape -}}</p>
-        <p><a href="{{ "/feed.xml" | relative_url }}">Subscribe</a></p>
+        <p>
+          <span class="icon"><i class="fas fa-rss"></i></span>
+          <a href="{{ "/feed.xml" | relative_url }}">Subscribe</a>
+        </p>
       </div>
     </div>
   </div>
