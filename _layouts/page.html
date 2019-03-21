@@ -2,24 +2,28 @@
 layout: default
 ---
 
-<article class="post grid-xl">
-  <section class="hero is-primary">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title is-1">{{ page.title | escape }}</h1>
-        
-        {%- if page.subtitle -%}
-        <h4 class="subtitle is-4">{{ page.subtitle | escape }}</h4>
-        {%- endif -%}   
-      </div>
-    </div>
-  </section>
+{%- include hero.html -%}
 
-  <section class="section">
-    <div class="container">
-      <div class="content">
-        {{ content }}
-      </div>
+<div class="container">
+  <div class="columns">
+    <div class="column is-10 is-offset-1">
+      <article class="post">
+        <div class="card article">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content has-text-centered">
+                <p class="title article-title">{{ page.title | escape }}</p>
+                {%- if page.subtitle -%}
+                <p class="subtitle article-subtitle">{{ page.subtitle | escape }}</p>
+                {%- endif -%}
+              </div>
+            </div>
+            <div class="content article-body" itemprop="articleBody">
+              {{ content }}
+            </div>
+          </div>
+        </div>
+      </article>
     </div>
-  </section>
-</article>
+  </div>
+</div>

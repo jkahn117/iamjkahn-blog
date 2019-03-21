@@ -1,3 +1,5 @@
+$mobile: 768px;
+
 html, body {
   background: #F0F2F4;
 }
@@ -7,7 +9,13 @@ html, body {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 500px;
+  
+  @media screen and (max-width: $mobile) {
+    height: 300px;
+  }
+  @media screen and (min-width: $mobile) {
+    height: 500px;
+  }
 }
 
 article,
@@ -15,9 +23,12 @@ article,
   margin: 5rem 0;
   margin-top: -200px;
 }
+article.post {
+  margin-top: -300px;
+}
 .articles .content p {
   line-height: 1.9;
-  margin: 15px 0;
+  margin: 1rem 0;
 }
 .author-image {
   position: absolute;
@@ -50,14 +61,22 @@ article,
   margin-bottom: 3rem;
 }
 .article-body {
+  @media screen and (max-width: $mobile) {
+    margin: 0 2px;
+  }
+  @media screen and (min-width: $mobile) {
+    margin: 0 6rem;
+  }
   line-height: 1.4;
-  margin: 0 6rem;
 }
-
-
 
 pre {
   text-align: left;
+}
+
+div.highlighter-rouge + p,
+pre + p {
+  margin-top: 1rem;
 }
 
 article .by-line .media-left {

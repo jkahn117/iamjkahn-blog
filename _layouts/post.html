@@ -2,6 +2,12 @@
 layout: default
 ---
 
+{%- capture post_image -%}
+  {{ page.image }}
+{%- endcapture -%}
+
+{%- include hero.html image=post_image -%}
+
 <div class="container">
   <div class="columns">
     <div class="column is-10 is-offset-1">

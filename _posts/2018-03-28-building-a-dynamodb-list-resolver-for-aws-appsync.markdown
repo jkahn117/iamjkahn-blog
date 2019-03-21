@@ -2,9 +2,8 @@
 layout:	post
 title:	"Building a DynamoDB List Resolver for AWS AppSync"
 date:	2018-03-28
+image: /assets/images/1*pCU6g7anwbtwYl1gKL-yGQ.jpeg
 ---
-
-![](/assets/images/1*pCU6g7anwbtwYl1gKL-yGQ.jpeg)
   
 Building native and web apps with [AWS AppSync](https://aws.amazon.com/appsync/) allows you to quickly add support for real-time updates and offline data synchronization. Recently, I’ve been working on a web app that leverages AppSync with data stored in [Amazon DynamoDB](https://aws.amazon.com/dynamodb/). In building the app, it took some time to understand how to properly craft the GraphQL resolver to update List data in my table. Here’s how I solved it:
 

@@ -2,11 +2,10 @@
 layout:	post
 title:	"Cutting the Cord & Saving $100/month"
 date:	2017-11-19
+image: /assets/images/1*65w_7doJgagXuQe0Kin3Xg.jpeg
 ---
-
-  ![](/assets/images/1*65w_7doJgagXuQe0Kin3Xg.jpeg)
   
-  While somewhat outside the norm of what I typically write here, I thought I would share the outcome of my work to (mostly) cut-the-cord.
+While somewhat outside the norm of what I typically write here, I thought I would share the outcome of my work to (mostly) cut-the-cord.
 
 Between my monthly cable bill reaching $230 (cable TV, internet, and phone) and the realization that my kids watch only Netflix and the Disney/Boomerang apps, I decided it was time to explore cutting cable. Of the 200+ channels on our bill, my wife and I watched no more than a dozen beyond local channels. The cost simply no longer made sense.
 

@@ -2,6 +2,8 @@
 layout: default
 ---
 
+{%- include hero.html -%}
+
 <div class="container">
   <div class="columns">
     <div class="column is-10 is-offset-1">
@@ -19,6 +21,9 @@ layout: default
             </div>
             {%- if site.show_excerpts -%}
             <div class="content article-body">
+              {%- if post.image -%}
+              <img src="{{ post.image }}" alt="{{ post.title }}" />
+              {%- endif -%}
               {{ post.excerpt }}
             </div>
             {%- endif -%}
@@ -60,12 +65,5 @@ layout: default
       </section>
       {%- endif -%}
     </div>
-
-    <!-- <div class="column">
-      <h3 class="title is-3">Archives</h3>
-      <ul>
-        
-      </ul>
-    </div> -->
   </div>  
 </div>

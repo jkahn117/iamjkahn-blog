@@ -4,15 +4,12 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+Welcome to my blog.
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+After years of blogging on various platforms, I've tried to pull together almost 15 years of posts in one place. While mostly technical, you'll find a variety of topics discussed here, including a long ago trip to Australia.
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+This site is built using [Jekyll](https://jekyllrb.com/), a static site generator, with my own custom theme built with [Bulma](https://bulma.io). The site is hosted using the [AWS Amplify Console](https://aws.amazon.com/amplify/console/).
 
+Enjoy!
 
-[jekyll-organization]: https://github.com/jekyll
+-Josh

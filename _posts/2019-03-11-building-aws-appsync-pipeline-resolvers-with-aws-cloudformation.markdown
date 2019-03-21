@@ -2,9 +2,10 @@
 layout:	post
 title:	"Building AWS AppSync Pipeline Resolvers with AWS CloudFormation"
 date:	2019-03-11
+image: /assets/images/1*-FdFpSBYzsa6YyfDakasQA.jpeg
 ---
 
-  ![](/assets/images/1*-FdFpSBYzsa6YyfDakasQA.jpeg)Among the many updates from [AWS AppSync](https://aws.amazon.com/appsync/) over the past few months, the addition of [Pipeline Resolvers](https://docs.aws.amazon.com/appsync/latest/devguide/pipeline-resolvers.html) was particularly exciting. Pipeline Resolvers allow us to build a resolver from a series of reusable functions, each of which can query a separate data source. This approach can be useful in performing an authorization check or resolving a batch request across data sources.
+Among the many updates from [AWS AppSync](https://aws.amazon.com/appsync/) over the past few months, the addition of [Pipeline Resolvers](https://docs.aws.amazon.com/appsync/latest/devguide/pipeline-resolvers.html) was particularly exciting. Pipeline Resolvers allow us to build a resolver from a series of reusable functions, each of which can query a separate data source. This approach can be useful in performing an authorization check or resolving a batch request across data sources.
 
 For example, I recently built a Pipeline Resolver composed of two functions:
 
