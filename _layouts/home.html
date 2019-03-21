@@ -16,7 +16,9 @@ layout: default
               <div class="media-content has-text-centered">
                 {%- assign date_format = "%b %d %Y" -%}
                 <p class="subtitle article-subtitle">{{ post.date | date: date_format }}</p>
-                <p class="title article-title">{{ post.title | escape }}</p>
+                <p class="title article-title">
+                  <a href="{{ post.url }}">{{ post.title | escape }}</a>
+                </p>
               </div>
             </div>
             {%- if site.show_excerpts -%}

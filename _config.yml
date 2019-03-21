@@ -37,6 +37,7 @@ permalink: /:year/:month/:title.html
 # Header
 header_pages:
   - about.md
+  - archive.html
 
 # Build settings
 markdown: kramdown
