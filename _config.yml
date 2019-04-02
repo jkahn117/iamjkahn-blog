@@ -39,6 +39,7 @@ permalink: /:year/:month/:title.html
 header_pages:
   - about.md
   - archive.html
+  - aws-resources.md
 
 # Build settings
 markdown: kramdown
@@ -48,6 +49,11 @@ plugins:
   - jekyll-seo-tag
   - jekyll-gist
   - jekyll-paginate-v2
+  # - jekyll-crosspost-to-medium
+
+jekyll-crosspost_to_medium:
+  enabled: false
+  status: draft
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
