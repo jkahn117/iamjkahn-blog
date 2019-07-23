@@ -19,11 +19,11 @@ frontend:
         - key: 'Strict-Transport-Security'
           value: 'max-age=31536000; includeSubDomains'
         - key: 'X-Frame-Options'
-          value: 'X-Frame-Options: SAMEORIGIN'
+          value: 'SAMEORIGIN'
         - key: 'X-XSS-Protection'
-          value: 'X-XSS-Protection: 1; mode=block'
+          value: '1; mode=block'
         - key: 'X-Content-Type-Options'
-          value: 'X-Content-Type-Options: nosniff'
+          value: 'nosniff'
         - key: 'Content-Security-Policy'
-          value: "default-src 'self'; style-src https://cdnjs.cloudflare.com; script-src https://use.fontawesome.com https://www.googletagmanager.com"
+          value: "default-src 'self'; style-src 'self' https://cdnjs.cloudflare.com; script-src 'self' https://use.fontawesome.com https://www.googletagmanager.com"
           
