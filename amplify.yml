@@ -1,0 +1,29 @@
+version: 0.1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - bundle install
+    build:
+      commands:
+        - bundle exec jekyll b
+  artifacts:
+    baseDirectory: _site
+    files:
+      - '**/*'
+  cache:
+    paths: []
+  customHeaders:
+    - pattern: '**/*'
+      headers:
+        - key: 'Strict-Transport-Security'
+          value: 'max-age=31536000; includeSubDomains'
+        - key: 'X-Frame-Options'
+          value: 'X-Frame-Options: SAMEORIGIN'
+        - key: 'X-XSS-Protection'
+          value: 'X-XSS-Protection: 1; mode=block'
+        - key: 'X-Content-Type-Options'
+          value: 'X-Content-Type-Options: nosniff'
+        - key: 'Content-Security-Policy'
+          value: "default-src 'self'"
+          

@@ -16,6 +16,8 @@ A selection of my favorite AWS resources on various topics...
 | **AWS API Gateway** |
 | [A Detailed Overview of AWS API Gateway](https://www.alexdebrie.com/posts/api-gateway-elements/) | Incredible deep dive on AWS API Gateway. |
 | [How to sign AWS Api Gateway Requests with Signature Version 4 using AWS Amplify?](https://jun711.github.io/aws/how-to-sign-api-gateway-requests-with-signature-version-4-using-aws-amplify/) | Detailed overview of the SigV4 signing process and how to. |
+| **CloudFormation** |
+| [CloudFormation Nested Stacks Primer](https://www.trek10.com/blog/cloudformation-nested-stacks-primer/) | While I did not formerly believe, I've grown to feel Nested Stacks are a good thing. |
 | **DynamoDB** |
 | [From relational DB to single DynamoDB table: a step-by-step exploration](https://www.trek10.com/blog/dynamodb-single-table-relational-modeling/) | Excellent article detailing DynamoDB design best practices in reference to an existing relational database model. |
 | [DynamoDB Pricing: OnDemand, Autoscaled, Provisioned, or Reserved?](https://www.trek10.com/blog/findev-dynamodb-pricing-analysis/) | An overview of DynamoDB pricing models. |
@@ -30,5 +32,7 @@ A selection of my favorite AWS resources on various topics...
 | [You are wrong about serverless vendor lock-in](https://lumigo.io/blog/you-are-wrong-about-serverless-vendor-lock-in/) | Realistic point of view on serverless and perceived notion of lock-in (you're not). Serverless enhances focus and allows teams to deliver on business value as opposed to building supporting systems. Business logic is portable. |
 | **AWS Step Functions** |
 | [Supported AWS Service Integrations for Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/connect-supported-services.html) | Useful table of integrations between Step Functions and other AWS services. |
+| **Security** |
+| [AWS Security Reference](https://docs.aws.amazon.com/security/) | Quick links to service-specific security documentation. |
 | **Workshops** |
 | [AWS Hands-On Workshops](https://github.com/angelarw/aws-hands-on-workshops) | Excellent collection of AWS workshops across a variety of topics, including serverless, development, IoT, and more. |
