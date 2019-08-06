@@ -26,5 +26,5 @@ frontend:
           value: 'nosniff'
         - key: 'Content-Security-Policy'
           #value: "default-src 'self'; style-src 'unsafe-inline' 'self' https://cdnjs.cloudflare.com; script-src 'self' https://use.fontawesome.com https://www.googletagmanager.com https://www.google-analytics.com; img-src: https://www.google-analytics.com 'self'"
-          value: "default-src 'self'; style-src 'unsafe-inline' https://cdnjs.cloudflare.com; script-src 'self' https://use.fontawesome.com https://www.google-analytics.com; img-src https://www.google-analytics.com www.google-analytics.com https://stats.g.doubleclick.net; connect-src https://www.google-analytics.com www.google-analytics.com https://stats.g.doubleclick.net"
+          value: "default-src 'self'; style-src 'self' unsafe-inline' https://cdnjs.cloudflare.com; script-src 'self' https://use.fontawesome.com https://www.googletagmanager.com https://www.google-analytics.com; img-src 'self' https://www.google-analytics.com www.google-analytics.com https://stats.g.doubleclick.net; connect-src https://www.google-analytics.com www.google-analytics.com https://stats.g.doubleclick.net"
           
