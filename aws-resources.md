@@ -19,6 +19,8 @@ A selection of my favorite AWS resources on various topics...
 | **CloudFormation** |
 | [CloudFormation Nested Stacks Primer](https://www.trek10.com/blog/cloudformation-nested-stacks-primer/) | While I did not formerly believe, I've grown to feel Nested Stacks are a good thing. |
 | **DynamoDB** |
+| [Data Modeling a Gaming Application with Amazon DynamoDB](https://aws.amazon.com/getting-started/projects/data-modeling-gaming-app-with-dynamodb/) | Tutorial describing data modelling approach for a game application using DyanmoDB. Great approach to learning design patterns. |
+| [Design a database for a mobile app with Amazon DynamoDB](https://aws.amazon.com/getting-started/projects/design-a-database-for-a-mobile-app-with-dynamodb/) | Another tutorial, similar to the preceeding link, that reviews the data model approach for a common use case with DynamoDB. Very instructive. |
 | [From relational DB to single DynamoDB table: a step-by-step exploration](https://www.trek10.com/blog/dynamodb-single-table-relational-modeling/) | Excellent article detailing DynamoDB design best practices in reference to an existing relational database model. |
 | [DynamoDB Pricing: OnDemand, Autoscaled, Provisioned, or Reserved?](https://www.trek10.com/blog/findev-dynamodb-pricing-analysis/) | An overview of DynamoDB pricing models. |
 | [Understanding the scaling behaviour of DynamoDB OnDemand tables](https://theburningmonk.com/2019/03/understanding-the-scaling-behaviour-of-dynamodb-ondemand-tables/) | Analysis of scaling behavior when using DynamoDB On-Demand. Useful when migrating from provisioned capacity or when considering tables with very spikey usage. |
@@ -36,3 +38,4 @@ A selection of my favorite AWS resources on various topics...
 | [AWS Security Reference](https://docs.aws.amazon.com/security/) | Quick links to service-specific security documentation. |
 | **Workshops** |
 | [AWS Hands-On Workshops](https://github.com/angelarw/aws-hands-on-workshops) | Excellent collection of AWS workshops across a variety of topics, including serverless, development, IoT, and more. |
+| [AWS Networking Workshop](https://networking.aws.seibtribe.com) | Get hands-on with AWS networking features. |
