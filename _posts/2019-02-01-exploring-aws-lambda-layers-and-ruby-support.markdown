@@ -2,7 +2,7 @@
 layout:	post
 title:	"Exploring AWS Lambda Layers and Ruby Support"
 date:	2019-02-01
-image: /assets/images/1*g7Mi5qGirKpD7M503DD55Q.jpeg
+background: '/assets/images/1*g7Mi5qGirKpD7M503DD55Q.jpeg'
 ---
   
 I’ve been meaning to explore [Lambda Layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html) and [Lambda support for Ruby](https://docs.aws.amazon.com/lambda/latest/dg/ruby-handler.html) since both were announced at re:Invent 2018. Over the past few days, I’ve finally had the opportunity and wanted to share my findings.

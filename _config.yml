@@ -23,6 +23,7 @@ twitter_username: joshuaakahn
 github_username:  jkahn117
 medium_username: joshua.a.kahn
 show_excerpts: true
+google_analytics: UA-136681485-1
 
 # Pagination
 pagination:
@@ -43,7 +44,7 @@ header_pages:
 
 # Build settings
 markdown: kramdown
-theme: minima
+theme: jekyll-theme-clean-blog
 plugins:
   - jekyll-feed
   - jekyll-seo-tag

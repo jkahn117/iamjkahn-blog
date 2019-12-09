@@ -2,7 +2,7 @@
 layout:	post
 title:	"Building a Unified Backend with AWS AppSync"
 date:	2018-06-19
-image: /assets/images/1*uHai2RyMNueGeZ0sdcWeTg.png
+background: '/assets/images/1*uHai2RyMNueGeZ0sdcWeTg.png'
 ---
   
 Since its announcement at re:Invent 2017, [AWS AppSync](https://aws.amazon.com/appsync/) has caused me to rethink my preferred approach to building mobile backends. While REST is well-understood, I often found it less flexible than I would like, particularly when designing consistent and efficient communication between client and server. Add the need to manage offline user data and conflicts and I would often find myself in a hot mess.

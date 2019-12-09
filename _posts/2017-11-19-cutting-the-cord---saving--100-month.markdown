@@ -2,7 +2,7 @@
 layout:	post
 title:	"Cutting the Cord & Saving $100/month"
 date:	2017-11-19
-image: /assets/images/1*65w_7doJgagXuQe0Kin3Xg.jpeg
+background: '/assets/images/1*65w_7doJgagXuQe0Kin3Xg.jpeg'
 ---
   
 While somewhat outside the norm of what I typically write here, I thought I would share the outcome of my work to (mostly) cut-the-cord.

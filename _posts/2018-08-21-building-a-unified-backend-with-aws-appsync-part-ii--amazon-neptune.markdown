@@ -2,7 +2,7 @@
 layout:	post
 title:	"Building a Unified Backend with AWS AppSync Part II: Amazon Neptune"
 date:	2018-08-21
-image: /assets/images/1*EdwOwl_Wp8Qh9ROMDf4ERQ.png
+background: '/assets/images/1*EdwOwl_Wp8Qh9ROMDf4ERQ.png'
 ---
   
 A few months ago, I wrote a post on [building a unified backend with AWS AppSync](https://medium.com/@joshua.a.kahn/building-a-unified-backend-with-aws-appsync-553263ececde). In the post and [associated sample project](https://github.com/jkahn117/aws-appsync-session-manager), I built the backend for a conference management app (akin to what you might find at AWS re:Invent) using [AWS AppSync](https://aws.amazon.com/appsync/) and two data sources, [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) and [Amazon Elasticsearch Service](https://aws.amazon.com/elasticsearch-service/). At the time of that post, AppSync also supported [AWS Lambda](https://aws.amazon.com/lambda/) as a data source (and has since added [HTTP endpoints](https://docs.aws.amazon.com/appsync/latest/devguide/tutorial-http-resolvers.html) as well), but I was unable to think of a plausible use case at the time.

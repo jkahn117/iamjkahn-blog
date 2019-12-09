@@ -2,6 +2,7 @@
 layout: page
 title: AWS Resources
 permalink: /aws-resources/
+background: '/assets/images/header1.jpg'
 ---
 
 A selection of my favorite AWS resources on various topics...
