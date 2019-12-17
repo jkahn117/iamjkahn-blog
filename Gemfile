@@ -18,10 +18,10 @@ gem "jekyll-theme-clean-blog"
 
 # If you have any plugins, put them here!
 group :jekyll_plugins do
-  gem "jekyll-feed", "~> 0.6"
-  gem "jekyll-seo-tag", "~> 2.5.0"
-  gem "jekyll-gist", "~> 1.5.0"
-  gem "jekyll-compose", "~> 0.10.1"
+  gem "jekyll-feed"
+  gem "jekyll-seo-tag"
+  gem "jekyll-gist"
+  gem "jekyll-compose"
   gem "jekyll-paginate-v2"
   # gem "jekyll-crosspost-to-medium"
 end
