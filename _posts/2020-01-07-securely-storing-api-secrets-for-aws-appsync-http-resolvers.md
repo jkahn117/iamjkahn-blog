@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Securely Storing API Secrets for AWS AppSync HTTP Resolvers
+title: Securely Storing API Secrets for AWS AppSync HTTP Data Sources
 date: 2020-01-07 19:29 -0600
 background: '/assets/images/dave-HT_tLT8mGLA-unsplash.jpg'
 summary: This post discusses an approach to securely storing and using API Keys for HTTP Data Sources by leveraging AWS AppSync Pipeline Resolvers.
