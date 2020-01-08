@@ -1,0 +1,20 @@
+<!--
+  <a class="btn btn-primary float-right" href="{{"/posts" | relative_url }}">View All Posts &rarr;</a>
+-->
+
+<!-- Pagination links -->
+<div>
+  {% if paginator.previous_page %}
+    <a class="btn btn-primary float-left" href="{{ paginator.previous_page_path }}">
+      &larr; Newer Posts
+    </a>
+  {% endif %}
+  
+  <!--  Page: {{ paginator.page }} of {{ paginator.total_pages }} -->
+  
+  {% if paginator.next_page %}
+    <a class="btn btn-primary float-right" href="{{ paginator.next_page_path }}">
+      Older Posts &rarr;
+    </a>
+  {% endif %}
+</div>
