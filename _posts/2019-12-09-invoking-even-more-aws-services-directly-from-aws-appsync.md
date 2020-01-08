@@ -123,8 +123,6 @@ type Query {
 }
 ```
 
-The response from SQS is encoded in XML and can be easily transformed to a JSON payload using the `$util` functions provided by AppSync.
-
 **`getSecret` - Response Mapping**
 
 ``` json
