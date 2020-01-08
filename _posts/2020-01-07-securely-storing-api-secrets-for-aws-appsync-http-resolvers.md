@@ -3,6 +3,7 @@ layout: post
 title: Securely Storing API Secrets for AWS AppSync HTTP Resolvers
 date: 2020-01-07 19:29 -0600
 background: '/assets/images/dave-HT_tLT8mGLA-unsplash.jpg'
+summary: This post discusses an approach to securely storing and using API Keys for HTTP Data Sources by leveraging AWS AppSync Pipeline Resolvers.
 ---
 
 At AWS re:Invent 2019, I presented a [Chalk Talk on alternative data sources for AWS AppSync](https://d1.awsstatic.com/events/reinvent/2019/REPEAT_2_AWS_AppSync_does_that_Support_for_alternative_data_sources_MOB318-R2.pdf). During one repeat of the session, an attendee asked about storing API Keys for web services. The attendee specifically referenced [Algolia](https://www.algolia.com/), though numerous services use API Keys to identify the number and frequency of calls from a particular user.

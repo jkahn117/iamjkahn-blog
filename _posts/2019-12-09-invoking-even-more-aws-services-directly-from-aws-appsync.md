@@ -169,6 +169,29 @@ $util.qr($ctx.stash.put("orderId", $util.autoId()))
 }
 ```
 
+
+## Event Bridge
+see ed limas post
+https://github.com/awsed/AppSync2EventBridge/blob/master/index.js
+
+X-Amz-Target: 'AWSEvents.PutEvents'
+Content-Type: 'application/x-amz-json-1.1'
+
+
+
+#set($inputRoot = $input.path('$'))
+{
+  "Entries": [
+    {
+      "DetailType": "webhookdetail",
+      "Source": "external-webhook",
+      "EventBusName": "webhooks",
+      "Detail": "$util.escapeJavaScript($input.json('$'))"
+    }
+  ]
+}
+
+
 Please let me know if there are other integrations you would be interested in seeing.
 
 
