@@ -28,7 +28,7 @@ google_analytics: UA-136681485-1
 # Pagination
 pagination:
   enabled: true
-  per_page: 5
+  per_page: 8
   permalink: '/page/:num/'
   title: ':title - page :num'
   sort_field: date
@@ -59,9 +59,9 @@ jekyll-crosspost_to_medium:
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
+exclude:
+  - Gemfile
+  - Gemfile.lock
 #   - node_modules
 #   - vendor/bundle/
 #   - vendor/cache/
