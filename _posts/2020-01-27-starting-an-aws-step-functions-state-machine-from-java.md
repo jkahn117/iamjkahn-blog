@@ -2,6 +2,8 @@
 layout: post
 title: Starting an AWS Step Functions State Machine from Java
 date: 2020-01-27 12:41 -0600
+summary: Quick post on how to start execution of an AWS Step Functions state machine from Java.
+background: '/assets/images/header1.jpg'
 ---
 
 Just over two years ago, I wrote a quick post to document [how to invoke an AWS Lambda function from Java]({% post_url 2017-11-07-invoking-an-aws-lambda-function-from-java %}). I recently was asked how to start execution of an AWS Step Function state machine and also found a working example challenging to dig up ... so I put together a quick example:
