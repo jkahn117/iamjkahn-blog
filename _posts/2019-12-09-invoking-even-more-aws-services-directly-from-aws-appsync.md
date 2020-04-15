@@ -2,6 +2,7 @@
 layout: post
 title: Invoking even more AWS services directly from AWS AppSync
 date: 2019-12-09 15:58 -0600
+summary: A collection of AWS AppSync resolvers that can be used to directly invoke AWS services, including Secrets Manager, SQS, S3, and Step Functions.
 background: '/assets/images/patrick-perkins-ETRPjvb0KM0-unsplash.jpg'
 ---
 
@@ -96,7 +97,7 @@ The response from SQS is encoded in XML and can be easily transformed to a JSON 
 
 ## AWS Secrets Manager
 
-AWS Secrets Manager allows customers to protect sensitive information such as API keys. In a future blog post, I will share how I incorporated Secrets Manager in an [AWS AppSync Pipeline Resolver](https://docs.aws.amazon.com/appsync/latest/devguide/pipeline-resolvers.html) to first retrieve a secret API key before querying a third-party web service for data, all via AppSync resolvers. For now, we can simply retrieve and return a secret from Secrets Manager.
+AWS Secrets Manager allows customers to protect sensitive information such as API keys. In a future blog post (UPDATE: [blog post](https://blog.iamjkahn.com/2020/01/securely-storing-api-secrets-for-aws-appsync-http-resolvers.html)), I will share how I incorporated Secrets Manager in an [AWS AppSync Pipeline Resolver](https://docs.aws.amazon.com/appsync/latest/devguide/pipeline-resolvers.html) to first retrieve a secret API key before querying a third-party web service for data, all via AppSync resolvers. For now, we can simply retrieve and return a secret from Secrets Manager.
 
 ``` graphql
 type Query {
@@ -169,28 +170,162 @@ $util.qr($ctx.stash.put("orderId", $util.autoId()))
 }
 ```
 
+## Amazon S3
 
-## Event Bridge
-see ed limas post
-https://github.com/awsed/AppSync2EventBridge/blob/master/index.js
+Inspired by a customer, we can also read and write objects from Amazon S3 via AppSync. Like the other examples included here, we rely on an HTTP Data Source configured with AWS IAM authorization. Unlike other service endpoints, S3 requires us to include the name of the target bucket in the endpoint. In CloudFormation, configuration of an S3 Data Source is as follows:
 
-X-Amz-Target: 'AWSEvents.PutEvents'
-Content-Type: 'application/x-amz-json-1.1'
+``` yaml
+StorageDataSource:
+  Type: AWS::AppSync::DataSource
+  Properties:
+    ApiId: !GetAtt MyApi.ApiId
+    Name: S3DataSource
+    Description: Amazon S3 Bucket
+    Type: HTTP
+    ServiceRoleArn: !GetAtt AppSyncServiceRole.Arn
+    HttpConfig:
+      Endpoint: !Sub "https://${MyBucket}.s3.${AWS::Region}.amazonaws.com"
+      AuthorizationConfig:
+        AuthorizationType: AWS_IAM
+        AwsIamConfig:
+          SigningRegion: !Sub "${AWS::Region}"
+          SigningServiceName: s3
+```
 
+For this use case, the customer asked to read and write JSON payloads to S3 and automatically generate a unique identifier on write. The GraphQL schema for these operations is as follows:
 
-
-#set($inputRoot = $input.path('$'))
-{
-  "Entries": [
-    {
-      "DetailType": "webhookdetail",
-      "Source": "external-webhook",
-      "EventBusName": "webhooks",
-      "Detail": "$util.escapeJavaScript($input.json('$'))"
-    }
-  ]
+``` graphql
+type Mutation {
+  putPayload(input: Payload): Response
 }
+input Payload {
+  payload: AWSJSON!
+}
+type Query {
+  getPayload(payloadId: ID!): Response!
+}
+type Response {
+  payloadId: String!
+  payload: AWSJSON
+}
+```
 
+Remember, each data source works with a single S3 Bucket. If your application interacts with multiple S3 Buckets, create a data source for each.
+
+**`putPayload` - Request Mapping**
+
+To write an object to S3, we use the [`putObject` REST API](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html). We assume the AppSync service role has appropriate permissions to perform this operation on the S3 bucket. Note that other content types may require changes to the body of the request or content type header.
+
+``` json
+## generate a unique identifier for the payload
+$util.qr($ctx.stash.put("payloadId", $util.autoId()))
+{
+  "version": "2018-05-29",
+  ## put the object in the bucket
+  "method": "PUT",
+  ## specify the name of the object in the resource path
+  "resourcePath": "/${ctx.stash.payloadId}.json",
+  "params": {
+    "headers": {
+      ## specify the content type of the object, e.g. JSON
+      "Content-Type" : "application/json"
+    },
+    "body": $util.toJson($ctx.args.input.payload)
+  }
+}
+```
+
+**`putPayload` - Response Mapping**
+
+The response to putting the payload in S3 is the unique identifier for that object in S3:
+
+``` json
+{
+  "payloadId": "${ctx.stash.payloadId}"
+}
+```
+
+**`getPayload` - Request Mapping**
+
+To retrieve an object from S3, we can use the ['getObject` REST API](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html). Again, the AppSync service role referenced for this data source will need appropriate permissions.
+
+``` json
+{
+  "version": "2018-05-29",
+  "method": "GET",
+  ## specify name of the object to retrieve
+  "resourcePath": "/${ctx.args.payloadId}.json"
+}
+```
+
+**`getPayload` - Response Mapping**
+
+For the response, we include both the payload JSON (string encoded) as well as the payload identifier. As noted earlier, this can be modified to support different use cases.
+
+``` json
+{
+  "payloadId": "${ctx.args.payloadId}",
+  "payload": $ctx.result.body
+}
+```
+
+## AWS EventBridge
+
+Thanks to [Ed Lima for posting a solution on integrating AppSync with AWS EventBridge](https://github.com/awsed/AppSync2EventBridge). A typical operation for interacting with EventBridge is to put an event on an event bus, this is a mutation.
+
+``` graphql
+type Mutation {
+  putEvent(event: String!): Event
+}
+```
+
+**`putEvent` - Request Mapping**
+
+Like other services documented here, the `x-amz-target` header is important in specifying the intended action. The body also must be formatted as the REST API for the service expects.
+
+``` json
+{
+  "version": "2018-05-29",
+  "method": "POST",
+  "resourcePath": "/",
+  "params": {
+    "headers": {
+      "content-type": "application/x-amz-json-1.1",
+      "x-amz-target":"AWSEvents.PutEvents"
+    },
+    "body": {
+      "Entries":[ 
+        {
+          "Source":"appsync",
+          "EventBusName": "default",
+          "Detail":"{ \\\"event\\\": \\\"$ctx.arguments.event\\\"}",
+          "DetailType":"Event Bridge via GraphQL"
+          }
+      ]
+    }
+  }
+}
+```
+
+**`putEvent` - Response Mapping**
+
+Ed provides a nice response mapping that will raise an error if EventBridge responds with an error message. See service documentation for details on how each AWS service handles errors.
+
+``` json
+#if($ctx.error)
+  $util.error($ctx.error.message, $ctx.error.type)
+#end
+## if the response status code is not 200, then return an error. Else return the body **
+#if($ctx.result.statusCode == 200)
+  ## If response is 200, return the body.
+  {
+    "result": "$util.parseJson($ctx.result.body)"
+  }
+#else
+  ## If response is not 200, append the response to error block.
+  $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+#end
+```
 
 Please let me know if there are other integrations you would be interested in seeing.
 
