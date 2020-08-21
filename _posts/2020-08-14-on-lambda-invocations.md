@@ -1,7 +1,7 @@
 ---
 layout: post
 title: On Lambda Invocations
-date: 2020-08-14 11:17 -0500
+date: 2020-08-14 11:18 -0500
 summary: Learning in Public - my notes on the types of Lambda invocations and related error handling.
 background: /assets/images/arisa-chattasa-AZcNLJgO4XE-unsplash.jpg
 ---
