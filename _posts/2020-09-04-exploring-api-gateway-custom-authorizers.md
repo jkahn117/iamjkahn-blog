@@ -78,7 +78,7 @@ Attempting the request again with the header results in the new affiliate being 
 
 We now have an affiliate account that can be used to access other API methods. Grab the `orgId` and create a new JWT token, removing the `admin` field and adding `orgId` with the value found in the previous step. Set the secret key to `my-secret-key` (shhhh, very secret) as shown in the image below.
 
-![JWT Creation](/assets/images/2020-09-08/jwt_creation.png)
+![JWT Creation](/assets/images/2020-09-08/jwt_creation.png){:class="img-fluid"}
 
 Return to Postman. We'll test an affiliate endpoint at `GET /products`. Be sure to also update the `Authorization` header with the new token (remove the old body payload).
 
@@ -125,7 +125,7 @@ The result showed that *all* requests succeeded, meaning that Usage Plan throttl
 
 For now, I've elected to manually configure the Key Source in the AWS Console:
 
-![API Key Source Setting](/assets/images/2020-09-08/apigw_apikeysource_setting.png)
+![API Key Source Setting](/assets/images/2020-09-08/apigw_apikeysource_setting.png){:class="img-fluid"}
 
 With Key Source setting fixed, we can run the "load test" again. Looking at just the first ten seconds, we see that roughly fifty requests are allowed, which aligns with the GOLD usage plan rate of five requests per second. Over the course of the next two ten-second periods, the client exhausts the 100 requests allowed by the usage plan per day (set purposefully low for this demonstration) and all subsequent requests are blocked.
 
