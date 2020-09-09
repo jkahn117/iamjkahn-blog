@@ -5,6 +5,8 @@ date:	2019-02-01
 background: '/assets/images/1*g7Mi5qGirKpD7M503DD55Q.jpeg'
 ---
   
+> For an update to this post, see [Update - Building Lambda Layers with AWS SAM](htts://blog.iamjkahn.com/2020/09/update-to-building-lambda-layers-with-aws-sam.html)
+
 I’ve been meaning to explore [Lambda Layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html) and [Lambda support for Ruby](https://docs.aws.amazon.com/lambda/latest/dg/ruby-handler.html) since both were announced at re:Invent 2018. Over the past few days, I’ve finally had the opportunity and wanted to share my findings.
 
 ### Ruby on Lambda
